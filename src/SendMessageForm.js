@@ -1,10 +1,10 @@
-import React, {Component} from "react"
+import React, { Component } from "react";
 
 //Contollred Component
-class SendMessageForm extends Component{
-  state={
-    text: ''
-  }
+class SendMessageForm extends Component {
+  state = {
+    text: ""
+  };
 
   isDisabled = () => {
     const { text } = this.state;
@@ -13,36 +13,46 @@ class SendMessageForm extends Component{
       return false;
     }
     return true;
-  }
+  };
 
   handleChange = event => {
+    this.setState({ text: event.target.value });
+  };
 
-  }
+  sendNewMessage = event => {
+    event.preventDefault();
 
-  sendNewMessage = () => {
-    
-  }
+    const { text } = this.state;
+    const { username, onSendMessage } = this.props;
 
-  render(){
-      const {text} = this.state;
+    onSendMessage({ username: username, text: text });
 
-      return(<div>
-          <form className="input-group" onSubmit={this.sendNewMessage}>
-            <input type="text" 
-                    className="form-control" 
-                    placeholder="Enter your message..."
-                    onChange={this.handleChange}
-                    value={text} />
-            <div className="input-group-append">
-              <button className="btn submit-button" disabled={this.isDisabled()}>
-                SEND
-              </button>
-            </div>
-          </form>
-        </div>);
+    this.setState({ text: "" });
+  };
+
+  render() {
+    const { text } = this.state;
+
+    return (
+      <div>
+        <form className="input-group" onSubmit={this.sendNewMessage}>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Enter your message..."
+            onChange={this.handleChange}
+            value={text}
+          />
+          <div className="input-group-append">
+            <button className="btn submit-button" disabled={this.isDisabled()}>
+              SEND
+            </button>
+          </div>
+        </form>
+      </div>
+    );
   }
 }
-
 
 // const isDisabled = (e) => {
 //     return true;
@@ -61,4 +71,4 @@ class SendMessageForm extends Component{
 //       </div>);
 // }
 
-export default SendMessageForm
+export default SendMessageForm;
