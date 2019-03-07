@@ -20,7 +20,8 @@ const ChatWindow = props => {
 
 ChatWindow.propTypes = {
   username: PropTypes.string.isRequired,
-  messages: PropTypes.array.isRequired
+  messages: PropTypes.array.isRequired,
+  onSendMessage: PropTypes.func.isRequired
 };
 
 export default ChatWindow;

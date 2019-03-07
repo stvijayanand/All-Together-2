@@ -3,25 +3,26 @@ import logo from "./logo.svg";
 import "./App.css";
 import ChatWindow from "./ChatWindow";
 
+const users = [{ username: "Amy" }, { username: "John" }];
+
 class App extends Component {
   state = {
-    users: [{ username: "Amy" }, { username: "John" }],
     messages: []
-    // messages: [
-    //   { username: 'Amy', text: 'Hi, Jon!' },
-    //   { username: 'Amy', text: 'How are you?' },
-    //   { username: 'John', text: 'Hi, Amy! Good, you?' },
-    // ]
   };
 
-  updateMessagesList = message => {
+  updateMessagesList = (username, text) => {
+    const message = {
+      ["username"]: username,
+      ["text"]: text
+    };
+
     this.setState(currentState => ({
       messages: [...currentState.messages, message]
     }));
   };
 
   render() {
-    const { users, messages } = this.state;
+    const { messages } = this.state;
 
     return (
       <div className="App">
@@ -30,17 +31,14 @@ class App extends Component {
           <h1 className="App-title">ReactND - Coding Practice</h1>
         </header>
         <div className="container">
-          <ChatWindow
-            username={users[0].username}
-            messages={messages}
-            onSendMessage={this.updateMessagesList}
-          />
-
-          <ChatWindow
-            username={users[1].username}
-            messages={messages}
-            onSendMessage={this.updateMessagesList}
-          />
+          {users.map(user => (
+            <ChatWindow
+              key={user.username}
+              username={user.username}
+              messages={messages}
+              onSendMessage={this.updateMessagesList}
+            />
+          ))}
         </div>
       </div>
     );

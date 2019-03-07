@@ -9,10 +9,7 @@ class SendMessageForm extends Component {
   isDisabled = () => {
     const { text } = this.state;
 
-    if (text.length > 0) {
-      return false;
-    }
-    return true;
+    return text === "";
   };
 
   handleChange = event => {
@@ -25,7 +22,7 @@ class SendMessageForm extends Component {
     const { text } = this.state;
     const { username, onSendMessage } = this.props;
 
-    onSendMessage({ username: username, text: text });
+    onSendMessage(username, text);
 
     this.setState({ text: "" });
   };
